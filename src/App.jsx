@@ -10,6 +10,7 @@ import {
   MovieList,
   WatchedSummary,
   WatchedMovieList,
+  MovieDetails,
 } from "./components";
 // ====================================
 
@@ -64,6 +65,7 @@ const tempWatchedData = [
 function App() {
   const [movies, setMovies] = useState(tempMovieData);
   const [watchedMovies, setWatchedMovies] = useState(tempWatchedData);
+  const [movieID, setMovieID] = useState("");
 
   function handleDeleteWatchedMovie(movieId) {
     setWatchedMovies((movies) =>
@@ -80,14 +82,20 @@ function App() {
       </NavBar>
       <Main>
         <Box>
-          <MovieList movies={movies} />
+          <MovieList movies={movies} onSetMovieID={setMovieID} />
         </Box>
         <Box>
-          <WatchedSummary watched={watchedMovies} />
-          <WatchedMovieList
-            watched={watchedMovies}
-            onDeleteWatchedMovie={handleDeleteWatchedMovie}
-          />
+          {movieID ? (
+            <MovieDetails onSetMovieID={setMovieID} />
+          ) : (
+            <>
+              <WatchedSummary watched={watchedMovies} />
+              <WatchedMovieList
+                watched={watchedMovies}
+                onDeleteWatchedMovie={handleDeleteWatchedMovie}
+              />
+            </>
+          )}
         </Box>
       </Main>
     </>

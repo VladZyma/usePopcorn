@@ -10,3 +10,4 @@ export { default as Movie } from "./Movie.jsx";
 export { default as WatchedSummary } from "./WatchedSummary.jsx";
 export { default as WatchedMovieList } from "./WatchedMovieList.jsx";
 export { default as WatchedMovie } from "./WatchedMovie.jsx";
+export { default as MovieDetails } from "./MovieDetails.jsx";

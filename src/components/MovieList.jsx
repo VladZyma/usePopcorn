@@ -1,10 +1,10 @@
 import { Movie } from "../components";
 
-function MovieList({ movies }) {
+function MovieList({ movies, onSetMovieID }) {
   return (
     <ul className="list list-movies">
       {movies.map((movie) => (
-        <Movie key={movie.imdbID} movie={movie} />
+        <Movie key={movie.imdbID} movie={movie} onSetMovieID={onSetMovieID} />
       ))}
     </ul>
   );
