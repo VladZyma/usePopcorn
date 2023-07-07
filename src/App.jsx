@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import {
   NavBar,
@@ -12,6 +12,8 @@ import {
   WatchedMovieList,
   MovieDetails,
 } from "./components";
+
+const API_KEY = process.env.REACT_APP_API_KEY;
 // ====================================
 
 const tempMovieData = [
@@ -63,9 +65,32 @@ const tempWatchedData = [
 
 // ====================================
 function App() {
-  const [movies, setMovies] = useState(tempMovieData);
+  const [movies, setMovies] = useState([]);
   const [watchedMovies, setWatchedMovies] = useState(tempWatchedData);
   const [movieID, setMovieID] = useState("");
+  const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    async function fetchMovies() {
+      try {
+        const response = await fetch(
+          `http://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`
+        );
+        const data = await response.json();
+
+        if (query.length < 3) {
+          setMovies([]);
+          return;
+        }
+
+        console.log(data);
+        setMovies(data.Search);
+      } catch (error) {
+      } finally {
+      }
+    }
+    fetchMovies();
+  }, [query]);
 
   function handleDeleteWatchedMovie(movieId) {
     setWatchedMovies((movies) =>
@@ -77,7 +102,7 @@ function App() {
     <>
       <NavBar>
         <Logo />
-        <Search />
+        <Search query={query} onSetQuery={setQuery} />
         <NumResults movies={movies} />
       </NavBar>
       <Main>
