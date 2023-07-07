@@ -5,3 +5,5 @@ export { default as Search } from "./Search.jsx";
 export { default as NumResults } from "./NumResults.jsx";
 export { default as Main } from "./Main.jsx";
 export { default as Box } from "./Box.jsx";
+export { default as MovieList } from "./MovieList.jsx";
+export { default as Movie } from "./Movie.jsx";

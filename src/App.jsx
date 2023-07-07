@@ -1,6 +1,14 @@
 import { useState } from "react";
 
-import { NavBar, Logo, Search, NumResults } from "./components";
+import {
+  NavBar,
+  Logo,
+  Search,
+  NumResults,
+  Main,
+  Box,
+  MovieList,
+} from "./components";
 // ====================================
 
 const tempMovieData = [
@@ -61,6 +69,11 @@ function App() {
         <Search />
         <NumResults movies={movies} />
       </NavBar>
+      <Main>
+        <Box>
+          <MovieList movies={movies} />
+        </Box>
+      </Main>
     </>
   );
 }

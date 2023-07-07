@@ -1,11 +1,5 @@
-import { Box } from "../components";
-
-function Main() {
-  return (
-    <main className="main">
-      <Box></Box>
-    </main>
-  );
+function Main({ children }) {
+  return <main className="main">{children}</main>;
 }
 
 export default Main;
