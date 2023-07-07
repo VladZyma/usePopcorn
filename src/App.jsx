@@ -68,7 +68,7 @@ const tempWatchedData = [
 // ====================================
 function App() {
   const [movies, setMovies] = useState([]);
-  const [watchedMovies, setWatchedMovies] = useState(tempWatchedData);
+  const [watchedMovies, setWatchedMovies] = useState([]);
   const [movieID, setMovieID] = useState("");
   const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -129,6 +129,10 @@ function App() {
     );
   }
 
+  function handleSetMovieId(movieId) {
+    setMovieID((selectedId) => (movieId === selectedId ? null : movieId));
+  }
+
   return (
     <>
       <NavBar>
@@ -141,12 +145,16 @@ function App() {
           {isLoading && <Loader />}
           {error && <ErrorMessage message={error} />}
           {!isLoading && !error && (
-            <MovieList movies={movies} onSetMovieID={setMovieID} />
+            <MovieList movies={movies} onSetMovieID={handleSetMovieId} />
           )}
         </Box>
         <Box>
           {movieID ? (
-            <MovieDetails onSetMovieID={setMovieID} />
+            <MovieDetails
+              movieID={movieID}
+              onSetMovieID={setMovieID}
+              API_KEY={API_KEY}
+            />
           ) : (
             <>
               <WatchedSummary watched={watchedMovies} />
