@@ -9,6 +9,7 @@ import {
   Box,
   MovieList,
   WatchedSummary,
+  WatchedMovieList,
 } from "./components";
 // ====================================
 
@@ -64,6 +65,12 @@ function App() {
   const [movies, setMovies] = useState(tempMovieData);
   const [watchedMovies, setWatchedMovies] = useState(tempWatchedData);
 
+  function handleDeleteWatchedMovie(movieId) {
+    setWatchedMovies((movies) =>
+      movies.filter((movie) => movie.imdbID !== movieId)
+    );
+  }
+
   return (
     <>
       <NavBar>
@@ -77,6 +84,10 @@ function App() {
         </Box>
         <Box>
           <WatchedSummary watched={watchedMovies} />
+          <WatchedMovieList
+            watched={watchedMovies}
+            onDeleteWatchedMovie={handleDeleteWatchedMovie}
+          />
         </Box>
       </Main>
     </>

@@ -8,3 +8,5 @@ export { default as Box } from "./Box.jsx";
 export { default as MovieList } from "./MovieList.jsx";
 export { default as Movie } from "./Movie.jsx";
 export { default as WatchedSummary } from "./WatchedSummary.jsx";
+export { default as WatchedMovieList } from "./WatchedMovieList.jsx";
+export { default as WatchedMovie } from "./WatchedMovie.jsx";
