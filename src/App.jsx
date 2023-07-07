@@ -11,6 +11,8 @@ import {
   WatchedSummary,
   WatchedMovieList,
   MovieDetails,
+  Loader,
+  ErrorMessage,
 } from "./components";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
@@ -69,29 +71,51 @@ function App() {
   const [watchedMovies, setWatchedMovies] = useState(tempWatchedData);
   const [movieID, setMovieID] = useState("");
   const [query, setQuery] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const controller = new AbortController();
 
     async function fetchMovies() {
       try {
+        setIsLoading(true);
+        setError("");
+
         const response = await fetch(
           `http://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`,
           { signal: controller.signal }
         );
+
+        if (!response.ok) {
+          throw new Error("Something went wrong with fetching movies!");
+        }
+
         const data = await response.json();
 
-        if (query.length < 3) {
-          setMovies([]);
-          return;
+        if (data.Response === "False") {
+          throw new Error(data.Error);
         }
 
         console.log(data);
         setMovies(data.Search);
+        setError("");
       } catch (error) {
+        console.log(error.message);
+        if (error.name !== "AbortError") {
+          setError(error.message);
+        }
       } finally {
+        setIsLoading(false);
       }
     }
+
+    if (query.length < 3) {
+      setMovies([]);
+      setError("");
+      return;
+    }
+
     fetchMovies();
 
     return function () {
@@ -114,7 +138,11 @@ function App() {
       </NavBar>
       <Main>
         <Box>
-          <MovieList movies={movies} onSetMovieID={setMovieID} />
+          {isLoading && <Loader />}
+          {error && <ErrorMessage message={error} />}
+          {!isLoading && !error && (
+            <MovieList movies={movies} onSetMovieID={setMovieID} />
+          )}
         </Box>
         <Box>
           {movieID ? (

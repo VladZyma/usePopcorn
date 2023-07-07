@@ -11,3 +11,5 @@ export { default as WatchedSummary } from "./WatchedSummary.jsx";
 export { default as WatchedMovieList } from "./WatchedMovieList.jsx";
 export { default as WatchedMovie } from "./WatchedMovie.jsx";
 export { default as MovieDetails } from "./MovieDetails.jsx";
+export { default as Loader } from "./Loader.jsx";
+export { default as ErrorMessage } from "./ErrorMessage.jsx";
