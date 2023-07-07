@@ -8,6 +8,7 @@ import {
   Main,
   Box,
   MovieList,
+  WatchedSummary,
 } from "./components";
 // ====================================
 
@@ -61,6 +62,7 @@ const tempWatchedData = [
 // ====================================
 function App() {
   const [movies, setMovies] = useState(tempMovieData);
+  const [watchedMovies, setWatchedMovies] = useState(tempWatchedData);
 
   return (
     <>
@@ -72,6 +74,9 @@ function App() {
       <Main>
         <Box>
           <MovieList movies={movies} />
+        </Box>
+        <Box>
+          <WatchedSummary watched={watchedMovies} />
         </Box>
       </Main>
     </>
