@@ -71,10 +71,13 @@ function App() {
   const [query, setQuery] = useState("");
 
   useEffect(() => {
+    const controller = new AbortController();
+
     async function fetchMovies() {
       try {
         const response = await fetch(
-          `http://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`
+          `http://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`,
+          { signal: controller.signal }
         );
         const data = await response.json();
 
@@ -90,6 +93,10 @@ function App() {
       }
     }
     fetchMovies();
+
+    return function () {
+      controller.abort();
+    };
   }, [query]);
 
   function handleDeleteWatchedMovie(movieId) {
