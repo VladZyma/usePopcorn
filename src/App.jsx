@@ -116,12 +116,17 @@ function App() {
       return;
     }
 
+    handleCloseMovie();
     fetchMovies();
 
     return function () {
       controller.abort();
     };
   }, [query]);
+
+  function handleAddWatchedMovie(movie) {
+    setWatchedMovies((watched) => [...watched, movie]);
+  }
 
   function handleDeleteWatchedMovie(movieId) {
     setWatchedMovies((movies) =>
@@ -131,6 +136,10 @@ function App() {
 
   function handleSetMovieId(movieId) {
     setMovieID((selectedId) => (movieId === selectedId ? null : movieId));
+  }
+
+  function handleCloseMovie(movieId) {
+    setMovieID("");
   }
 
   return (
@@ -152,8 +161,11 @@ function App() {
           {movieID ? (
             <MovieDetails
               movieID={movieID}
-              onSetMovieID={setMovieID}
               API_KEY={API_KEY}
+              watched={watchedMovies}
+              onSetMovieID={setMovieID}
+              onAddMovie={handleAddWatchedMovie}
+              onCloseMovie={handleCloseMovie}
             />
           ) : (
             <>

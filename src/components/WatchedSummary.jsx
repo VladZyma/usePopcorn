@@ -3,9 +3,17 @@ function WatchedSummary({ watched }) {
     return arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
   };
 
-  const avgIMDbRating = getAverage(watched.map((movie) => movie.imdbRating));
-  const avgUserRating = getAverage(watched.map((movie) => movie.userRating));
-  const avgRunTime = getAverage(watched.map((movie) => movie.runtime));
+  const avgIMDbRating = getAverage(
+    watched.map((movie) => movie.imdbRating)
+  ).toFixed(1);
+
+  const avgUserRating = getAverage(
+    watched.map((movie) => movie.userRating)
+  ).toFixed(1);
+
+  const avgRunTime = getAverage(watched.map((movie) => movie.runtime)).toFixed(
+    1
+  );
 
   return (
     <div className="summary">
