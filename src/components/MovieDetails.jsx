@@ -69,7 +69,6 @@ function MovieDetails({
         if (data.Response === "False") {
           throw new Error(data.Error);
         }
-        console.log(data);
         setMovie(data);
 
         setIsLoading(false);
