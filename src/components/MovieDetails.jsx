@@ -87,6 +87,28 @@ function MovieDetails({
     return () => controller.abort();
   }, [movieID, API_KEY]);
 
+  //changing document title
+  useEffect(() => {
+    if (!title) return;
+
+    document.title = `Movie | ${title}`;
+
+    return () => (document.title = "usePopcorn");
+  }, [title]);
+
+  //exit from details by Escape button
+  useEffect(() => {
+    function callback(e) {
+      if (e.code === "Escape") {
+        onCloseMovie();
+      }
+    }
+
+    document.addEventListener("keydown", callback);
+
+    return () => document.removeEventListener("keydown", callback);
+  }, [onCloseMovie]);
+
   return (
     <div className="details">
       {isLoading && <Loader />}
