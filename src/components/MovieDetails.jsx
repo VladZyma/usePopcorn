@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 
-import { Loader, ErrorMessage } from "../components";
+import { Loader, ErrorMessage, StarRating } from "../components";
 
 function MovieDetails({ movieID, onSetMovieID, API_KEY }) {
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [userRating, setUserRating] = useState(0);
 
   const {
     Title: title,
@@ -84,7 +85,16 @@ function MovieDetails({ movieID, onSetMovieID, API_KEY }) {
           </header>
 
           <section>
-            <div className="rating"></div>
+            <div className="rating">
+              <StarRating
+                maxRating={10}
+                size={24}
+                onSetRating={setUserRating}
+              />
+              {userRating > 0 && (
+                <button className="btn-add">+ Add to list</button>
+              )}
+            </div>
             <p>
               <em>{plot}</em>
             </p>
