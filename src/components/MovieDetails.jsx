@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { Loader, ErrorMessage, StarRating } from "../components";
+import { useKey } from "../hooks/useKey";
 
 function MovieDetails({
   movieID,
@@ -96,17 +97,7 @@ function MovieDetails({
   }, [title]);
 
   //exit from details by Escape button
-  useEffect(() => {
-    function callback(e) {
-      if (e.code === "Escape") {
-        onCloseMovie();
-      }
-    }
-
-    document.addEventListener("keydown", callback);
-
-    return () => document.removeEventListener("keydown", callback);
-  }, [onCloseMovie]);
+  useKey("Escape", onCloseMovie);
 
   return (
     <div className="details">
