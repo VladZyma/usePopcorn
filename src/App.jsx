@@ -19,7 +19,10 @@ const API_KEY = process.env.REACT_APP_API_KEY;
 
 function App() {
   const [movies, setMovies] = useState([]);
-  const [watchedMovies, setWatchedMovies] = useState([]);
+  const [watchedMovies, setWatchedMovies] = useState(() => {
+    const watched = JSON.parse(localStorage.getItem("watched"));
+    return watched ? watched : [];
+  });
   const [movieID, setMovieID] = useState("");
   const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
