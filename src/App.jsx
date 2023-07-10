@@ -15,14 +15,12 @@ import {
   ErrorMessage,
 } from "./components";
 import { useFetchMovies } from "./hooks/useFetchMovies";
+import { useLocalStorageState } from "./hooks/useLocalStorageState";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
 function App() {
-  const [watchedMovies, setWatchedMovies] = useState(() => {
-    const watched = JSON.parse(localStorage.getItem("watched"));
-    return watched ? watched : [];
-  });
+  const [watchedMovies, setWatchedMovies] = useLocalStorageState([], "watched");
   const [movieID, setMovieID] = useState("");
   const [query, setQuery] = useState("");
 
